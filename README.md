@@ -50,4 +50,7 @@ To download the latest version, check the Releases tab.
 
 # Benchlab is brought to you by The OpenBenchtable Proejct & ElmorLabs
 
-
+# This project is made possible using Open Source components
+- SkiaSharp https://github.com/mono/SkiaSharp
+- HarfBuzz https://github.com/harfbuzz/harfbuzz
+- AvaloniaUI https://github.com/AvaloniaUI/Avalonia
