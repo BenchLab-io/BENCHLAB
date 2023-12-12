@@ -12,6 +12,7 @@ Monitoring is available for:
 - Humidity
 
 BENCHLAB is available for purchase starting from January 1, 2023 at benchlab.io.
+![image](https://github.com/BenchLab-io/benchlab/assets/2151317/6aa9c95a-c936-4c4b-9b91-a81a62c2ebf7)
 
 # Benchlab Software
 The software available on this page is made to exclusively work with the Benchlab Hardware.
