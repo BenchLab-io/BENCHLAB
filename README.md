@@ -48,9 +48,9 @@ If you encounter a bug in the software, you can report it in the "issue" tab on 
 
 To download the latest version, check the Releases tab.
 
-# Benchlab is brought to you by The OpenBenchtable Project & ElmorLabs
+## Benchlab is brought to you by The OpenBenchtable Project & ElmorLabs
 
-# This project is made possible using Open Source components
+## This project is made possible using Open Source components
 - SkiaSharp https://github.com/mono/SkiaSharp
 - HarfBuzz https://github.com/harfbuzz/harfbuzz
 - AvaloniaUI https://github.com/AvaloniaUI/Avalonia
