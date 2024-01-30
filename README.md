@@ -11,13 +11,11 @@ Monitoring is available for:
 - Temperature
 - Humidity
 
-BENCHLAB is available for purchase starting from December 29th, 2024 at benchlab.io.
+BENCHLAB is available for purchase starting from December 29th, 2023 at benchlab.io.
 ![image](https://github.com/BenchLab-io/benchlab/assets/2151317/6aa9c95a-c936-4c4b-9b91-a81a62c2ebf7)
 
 # Benchlab Software
-The software available on this page is made to exclusively work with the Benchlab Hardware.
-
-The software is made to run on Windows 10/11. For profesionnal partners, Labs and Benchmark-automation groups, feel free to contact us at contact@benchlab.io for alternativ way to communicate with the Benchlab hardware (API/scripts).
+The software available on this page is made to exclusively work with the Benchlab Hardware. The software is made to run on Windows 10/11.
 
 # How to install & use the benchlab software
 - Download the benchlab software from the official Github releases page: [https://github.com/BenchLab-io](https://github.com/BenchLab-io/benchlab/releases)
@@ -30,6 +28,9 @@ The software is made to run on Windows 10/11. For profesionnal partners, Labs an
 - My antivirus is giving a warning when I unzip / run the program
 This can happen with WIndows Defender SmartScreen or AVAST as we are a small team we are not yet a "known" source for software distribution.
 
+- Can I communicate with the BENCHLAB Hardware with a script?
+Yes you can check the example Python Script at : https://github.com/BenchLab-io/BENCHLAB.PythonSample
+
 # Changelog
 Check the release page for changes.
 
@@ -41,6 +42,9 @@ Check the release page for changes.
 - Advanced Fan control options in software
 - Advanced Fan control options save on the benchlab board (whenever possible)
 - Report status of RGB header connected
+
+# Profesionnal services, support & calibration
+For profesionnal partners, Labs and Benchmark-automation groups, feel free to contact us at contact@benchlab.io for alternativ way to communicate with the Benchlab hardware, dedicated support and exrtra calibration needs.
 
 # Disclaimer
 The Benchlab Team's goals are to provide a reliable and good user experience, keep in mind that bugs & limitations can still be present.
