@@ -26,7 +26,16 @@ Telemetry is displayed live in the BENCHLAB Dashboard app, and can be logged/exp
 
 Hardware is available for purchase at [benchlab.io](https://benchlab.io).
 
-![BENCHLAB](https://github.com/BENCHLAB-io/BENCHLAB/assets/2151317/6aa9c95a-c936-4c4b-9b91-a81a62c2ebf7)
+<table>
+<tr>
+<th>BENCHLAB 2</th>
+<th>BENCHLAB 1</th>
+</tr>
+<tr>
+<td><img src="https://benchlab.io/cdn/shop/files/BENCHLAB2_Front.png" width="400" alt="BENCHLAB 2"></td>
+<td><img src="https://github.com/BENCHLAB-io/BENCHLAB/assets/2151317/6aa9c95a-c936-4c4b-9b91-a81a62c2ebf7" width="400" alt="BENCHLAB 1"></td>
+</tr>
+</table>
 
 ---
 
