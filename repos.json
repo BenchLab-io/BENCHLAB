@@ -1,15 +1,12 @@
 [
   {
     "repo": "BENCHLAB-FW",
-    "name": "BENCHLAB 2 Firmware",
-    "description": "Firmware for the BENCHLAB 2 hardware board",
-    "tagPrefix": "benchlab2/"
-  },
-  {
-    "repo": "BENCHLAB-FW",
-    "name": "BENCHLAB 1 Firmware",
-    "description": "Firmware for the original BENCHLAB hardware board",
-    "tagPrefix": "benchlab1/"
+    "name": "BENCHLAB Firmware",
+    "description": "Firmware for the BENCHLAB hardware boards",
+    "variants": [
+      { "label": "BENCHLAB 2", "tagPrefix": "benchlab2/" },
+      { "label": "BENCHLAB 1", "tagPrefix": "benchlab1/" }
+    ]
   },
   {
     "repo": "BENCHLAB.BENCHLAB_Software",

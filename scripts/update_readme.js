@@ -40,23 +40,34 @@ function repoMeta(repo) {
   return ghJson(["api", `repos/${ORG}/${repo}`]);
 }
 
+function releaseCellFor(repo, repoUrl, tagPrefix, label) {
+  const release = latestRelease(repo, tagPrefix);
+  const releasesUrl = tagPrefix
+    ? `${repoUrl}/releases?q=${encodeURIComponent(tagPrefix)}`
+    : `${repoUrl}/releases`;
+  const link = release
+    ? `[${release.tag_name}](${release.html_url})`
+    : `[Releases](${releasesUrl})`;
+  const updated = release ? release.published_at.slice(0, 10) : "-";
+  return { line: label ? `${label}: ${link}` : link, updated };
+}
+
 function buildRow(entry) {
   const meta = repoMeta(entry.repo);
-  const release = latestRelease(entry.repo, entry.tagPrefix);
   const repoUrl = `https://github.com/${ORG}/${entry.repo}`;
   const visibility = meta.private ? "Private source" : "Public source";
   const sourceLink = meta.private
     ? `${visibility}`
     : `[${visibility}](${repoUrl})`;
-  const releasesUrl = entry.tagPrefix
-    ? `${repoUrl}/releases?q=${encodeURIComponent(entry.tagPrefix)}`
-    : `${repoUrl}/releases`;
-  const releaseCell = release
-    ? `[${release.tag_name}](${release.html_url})`
-    : `[Releases](${releasesUrl})`;
-  const updated = release
-    ? release.published_at.slice(0, 10)
-    : "-";
+
+  const cells = entry.variants
+    ? entry.variants.map((v) =>
+        releaseCellFor(entry.repo, repoUrl, v.tagPrefix, v.label)
+      )
+    : [releaseCellFor(entry.repo, repoUrl, entry.tagPrefix, null)];
+
+  const releaseCell = cells.map((c) => c.line).join("<br>");
+  const updated = cells.map((c) => c.updated).join("<br>");
 
   return `| **${entry.name}** | ${entry.description} | ${sourceLink} | ${releaseCell} | ${updated} |`;
 }
