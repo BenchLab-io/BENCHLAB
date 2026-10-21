@@ -13,12 +13,24 @@ function ghJson(args) {
   return JSON.parse(out);
 }
 
-function latestRelease(repo) {
+function latestRelease(repo, tagPrefix) {
   try {
-    return ghJson([
+    if (!tagPrefix) {
+      return ghJson(["api", `repos/${ORG}/${repo}/releases/latest`]);
+    }
+    // `releases/latest` ignores tag prefixes, so when a repo hosts multiple
+    // products (e.g. benchlab1/* and benchlab2/* firmware tags) we have to
+    // list releases and pick the newest one matching this entry's prefix.
+    const releases = ghJson([
       "api",
-      `repos/${ORG}/${repo}/releases/latest`,
+      `repos/${ORG}/${repo}/releases`,
+      "--paginate",
     ]);
+    return (
+      releases
+        .filter((r) => r.tag_name.startsWith(tagPrefix))
+        .sort((a, b) => new Date(b.published_at) - new Date(a.published_at))[0] || null
+    );
   } catch {
     return null;
   }
@@ -30,15 +42,18 @@ function repoMeta(repo) {
 
 function buildRow(entry) {
   const meta = repoMeta(entry.repo);
-  const release = latestRelease(entry.repo);
+  const release = latestRelease(entry.repo, entry.tagPrefix);
   const repoUrl = `https://github.com/${ORG}/${entry.repo}`;
   const visibility = meta.private ? "Private source" : "Public source";
   const sourceLink = meta.private
     ? `${visibility}`
     : `[${visibility}](${repoUrl})`;
+  const releasesUrl = entry.tagPrefix
+    ? `${repoUrl}/releases?q=${encodeURIComponent(entry.tagPrefix)}`
+    : `${repoUrl}/releases`;
   const releaseCell = release
     ? `[${release.tag_name}](${release.html_url})`
-    : `[Releases](${repoUrl}/releases)`;
+    : `[Releases](${releasesUrl})`;
   const updated = release
     ? release.published_at.slice(0, 10)
     : "-";

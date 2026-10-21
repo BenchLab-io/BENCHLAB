@@ -1,12 +1,19 @@
 [
   {
     "repo": "BENCHLAB-FW",
-    "name": "BENCHLAB Firmware",
-    "description": "Firmware running on the BENCHLAB hardware board"
+    "name": "BENCHLAB 2 Firmware",
+    "description": "Firmware for the BENCHLAB 2 hardware board",
+    "tagPrefix": "benchlab2/"
+  },
+  {
+    "repo": "BENCHLAB-FW",
+    "name": "BENCHLAB 1 Firmware",
+    "description": "Firmware for the original BENCHLAB hardware board",
+    "tagPrefix": "benchlab1/"
   },
   {
     "repo": "BENCHLAB.BENCHLAB_Software",
-    "name": "BENCHLAB Software",
+    "name": "BENCHLAB Dashboard",
     "description": "Windows desktop app for monitoring & controlling BENCHLAB hardware"
   },
   {
