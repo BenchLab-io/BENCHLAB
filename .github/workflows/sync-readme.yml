@@ -1,4 +1,4 @@
-name: Sync repo table in README
+name: Sync releases and repo table
 
 on:
   schedule:
@@ -12,6 +12,12 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+
+      - name: Mirror latest stable releases from source repos
+        env:
+          ORG_SYNC_TOKEN: ${{ secrets.ORG_SYNC_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/mirror_releases.js
 
       - name: Update README from repos.json
         env:

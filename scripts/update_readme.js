@@ -5,6 +5,7 @@ const fs = require("fs");
 const { execFileSync } = require("child_process");
 
 const ORG = "BenchLab-io";
+const HUB_REPO = "BENCHLAB";
 const START_MARKER = "<!-- BENCHLAB-REPOS:START -->";
 const END_MARKER = "<!-- BENCHLAB-REPOS:END -->";
 
@@ -13,41 +14,36 @@ function ghJson(args) {
   return JSON.parse(out);
 }
 
-function latestRelease(repo, tagPrefix) {
+function repoMeta(repo) {
+  return ghJson(["api", `repos/${ORG}/${repo}`]);
+}
+
+// Private source repos' own release pages 404 for customers, so the README
+// links to this hub repo's mirrored copy (see scripts/mirror_releases.js)
+// instead, keyed by the mirror tag's "<slug>-" prefix.
+function latestMirroredRelease(slug) {
   try {
-    if (!tagPrefix) {
-      return ghJson(["api", `repos/${ORG}/${repo}/releases/latest`]);
-    }
-    // `releases/latest` ignores tag prefixes, so when a repo hosts multiple
-    // products (e.g. benchlab1/* and benchlab2/* firmware tags) we have to
-    // list releases and pick the newest one matching this entry's prefix.
     const releases = ghJson([
       "api",
-      `repos/${ORG}/${repo}/releases`,
+      `repos/${ORG}/${HUB_REPO}/releases`,
       "--paginate",
     ]);
     return (
       releases
-        .filter((r) => r.tag_name.startsWith(tagPrefix))
-        .sort((a, b) => new Date(b.published_at) - new Date(a.published_at))[0] || null
+        .filter((r) => r.tag_name.startsWith(`${slug}-`))
+        .sort((a, b) => new Date(b.published_at) - new Date(a.published_at))[0] ||
+      null
     );
   } catch {
     return null;
   }
 }
 
-function repoMeta(repo) {
-  return ghJson(["api", `repos/${ORG}/${repo}`]);
-}
-
-function releaseCellFor(repo, repoUrl, tagPrefix, label) {
-  const release = latestRelease(repo, tagPrefix);
-  const releasesUrl = tagPrefix
-    ? `${repoUrl}/releases?q=${encodeURIComponent(tagPrefix)}`
-    : `${repoUrl}/releases`;
+function releaseCellFor(slug, label) {
+  const release = latestMirroredRelease(slug);
   const link = release
-    ? `[${release.tag_name}](${release.html_url})`
-    : `[Releases](${releasesUrl})`;
+    ? `[${release.tag_name.slice(slug.length + 1)}](${release.html_url})`
+    : "_pending_";
   const updated = release ? release.published_at.slice(0, 10) : "-";
   return { line: label ? `${label}: ${link}` : link, updated };
 }
@@ -61,10 +57,8 @@ function buildRow(entry) {
     : `[${visibility}](${repoUrl})`;
 
   const cells = entry.variants
-    ? entry.variants.map((v) =>
-        releaseCellFor(entry.repo, repoUrl, v.tagPrefix, v.label)
-      )
-    : [releaseCellFor(entry.repo, repoUrl, entry.tagPrefix, null)];
+    ? entry.variants.map((v) => releaseCellFor(v.slug, v.label))
+    : [releaseCellFor(entry.slug, null)];
 
   const releaseCell = cells.map((c) => c.line).join("<br>");
   const updated = cells.map((c) => c.updated).join("<br>");

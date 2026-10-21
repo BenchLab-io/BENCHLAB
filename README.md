@@ -41,20 +41,20 @@ Hardware is available for purchase at [benchlab.io](https://benchlab.io).
 
 ## Software, firmware & tools
 
-This repo is the central index for everything BENCHLAB. The table below is regenerated automatically every day (see [`.github/workflows/sync-readme.yml`](.github/workflows/sync-readme.yml)) from [`repos.json`](repos.json), pulling each project's latest release directly from GitHub — so it's always current.
+This repo is the central index for everything BENCHLAB. The table below is regenerated automatically every day (see [`.github/workflows/sync-readme.yml`](.github/workflows/sync-readme.yml)) from [`repos.json`](repos.json).
 
-Source for some projects is kept private; for those, use the release link to download installers/binaries directly.
+Source for some projects is kept private. For those, the "Latest release" link points to a mirrored copy of the installer/firmware/package published here on this repo, so downloads work for everyone regardless of source access.
 
 <!-- BENCHLAB-REPOS:START -->
 
 | Project | Description | Source | Latest release | Updated |
 |---|---|---|---|---|
-| **BENCHLAB Firmware** | Firmware for the BENCHLAB hardware boards | Private source | BENCHLAB 2: [benchlab2/v0.7.4](https://github.com/BenchLab-io/BENCHLAB-FW/releases/tag/benchlab2/v0.7.4)<br>BENCHLAB 1: [benchlab1/v0.6.0](https://github.com/BenchLab-io/BENCHLAB-FW/releases/tag/benchlab1/v0.6.0) | 2026-10-16<br>2026-09-29 |
-| **BENCHLAB Dashboard** | Windows desktop app for monitoring & controlling BENCHLAB hardware | Private source | [v1.0.0](https://github.com/BenchLab-io/BENCHLAB.BENCHLAB_Software/releases/tag/v1.0.0) | 2024-11-12 |
-| **BENCHLAB Service** | BENCHLAB software core exposed as a background service | Private source | [v2.6.1](https://github.com/BenchLab-io/BENCHLAB.BENCHLAB_Service/releases/tag/v2.6.1) | 2026-09-29 |
-| **BENCHLAB PyCore** | Python interface library for talking to BENCHLAB hardware | Private source | [v0.8.0](https://github.com/BenchLab-io/benchlab-pycore/releases/tag/v0.8.0) | 2026-09-29 |
-| **BENCHLAB PyTools** | Python tools & scripts built on top of BENCHLAB PyCore | [Public source](https://github.com/BenchLab-io/benchlab-pytools) | [v3.3.1](https://github.com/BenchLab-io/benchlab-pytools/releases/tag/v3.3.1) | 2026-10-17 |
-| **BENCHLAB iCUE Widget** | BENCHLAB widget integration for Corsair iCUE | Private source | [v1.0.12](https://github.com/BenchLab-io/benchlab-icue-widget/releases/tag/v1.0.12) | 2026-09-09 |
+| **BENCHLAB Firmware** | Firmware for the BENCHLAB hardware boards | Private source | BENCHLAB 2: [v0.7.4](https://github.com/BenchLab-io/BENCHLAB/releases/tag/fw-benchlab2-v0.7.4)<br>BENCHLAB 1: [v0.6.0](https://github.com/BenchLab-io/BENCHLAB/releases/tag/fw-benchlab1-v0.6.0) | 2026-10-21<br>2026-10-21 |
+| **BENCHLAB Dashboard** | Windows desktop app for monitoring & controlling BENCHLAB hardware | Private source | [v2.0.0](https://github.com/BenchLab-io/BENCHLAB/releases/tag/dashboard-v2.0.0) | 2026-10-21 |
+| **BENCHLAB Service** | BENCHLAB software core exposed as a background service | Private source | [v2.6.1](https://github.com/BenchLab-io/BENCHLAB/releases/tag/service-v2.6.1) | 2026-10-21 |
+| **BENCHLAB PyCore** | Python interface library for talking to BENCHLAB hardware | Private source | [v0.8.0](https://github.com/BenchLab-io/BENCHLAB/releases/tag/pycore-v0.8.0) | 2026-10-21 |
+| **BENCHLAB PyTools** | Python tools & scripts built on top of BENCHLAB PyCore | [Public source](https://github.com/BenchLab-io/benchlab-pytools) | [v3.3.1](https://github.com/BenchLab-io/BENCHLAB/releases/tag/pytools-v3.3.1) | 2026-10-21 |
+| **BENCHLAB iCUE Widget** | BENCHLAB widget integration for Corsair iCUE | Private source | [v1.0.12](https://github.com/BenchLab-io/BENCHLAB/releases/tag/icue-widget-v1.0.12) | 2026-10-21 |
 
 <!-- BENCHLAB-REPOS:END -->
 
