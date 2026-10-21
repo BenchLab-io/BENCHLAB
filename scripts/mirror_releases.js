@@ -24,6 +24,10 @@ function ghJson(args, env) {
 const sourceEnv = { ...process.env, GH_TOKEN: process.env.ORG_SYNC_TOKEN };
 const hubEnv = { ...process.env, GH_TOKEN: process.env.GITHUB_TOKEN };
 
+function repoMeta(repo) {
+  return ghJson(["api", `repos/${ORG}/${repo}`], sourceEnv);
+}
+
 function latestStableRelease(repo, tagPrefix) {
   const releases = ghJson(
     ["api", `repos/${ORG}/${repo}/releases`, "--paginate"],
@@ -47,24 +51,38 @@ function mirrorTagExists(mirrorTag) {
   }
 }
 
-function downloadAsset(url, destDir) {
-  const name = decodeURIComponent(url.split("/").pop());
-  const dest = path.join(destDir, name);
-  sh("gh", ["api", url, "-H", "Accept: application/octet-stream"], {
-    env: sourceEnv,
-    stdio: ["ignore", fs.openSync(dest, "w"), "inherit"],
-  });
+// Minimal glob: '*' matches any run of characters, everything else is literal.
+function globToRegExp(glob) {
+  const escaped = glob.replace(/[.+^${}()|[\]\\]/g, "\\$&").replace(/\*/g, ".*");
+  return new RegExp(`^${escaped}$`);
+}
+
+function filterAssets(assets, allowlist) {
+  const patterns = allowlist.map(globToRegExp);
+  return assets.filter((a) => patterns.some((p) => p.test(a.name)));
+}
+
+function downloadAsset(repo, asset, destDir) {
+  const dest = path.join(destDir, asset.name);
+  sh(
+    "gh",
+    [
+      "api",
+      `repos/${ORG}/${repo}/releases/assets/${asset.id}`,
+      "-H",
+      "Accept: application/octet-stream",
+    ],
+    {
+      env: sourceEnv,
+      stdio: ["ignore", fs.openSync(dest, "w"), "inherit"],
+    }
+  );
   return dest;
 }
 
-function mirrorRelease(sourceRepo, release, mirrorTag, title) {
+function mirrorRelease(sourceRepo, release, assets, mirrorTag, title) {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "benchlab-mirror-"));
-  const assetPaths = release.assets.map((a) =>
-    downloadAsset(
-      `repos/${ORG}/${sourceRepo}/releases/assets/${a.id}`,
-      tmpDir
-    )
-  );
+  const assetPaths = assets.map((a) => downloadAsset(sourceRepo, a, tmpDir));
 
   const notes = `Mirrored from [${sourceRepo} ${release.tag_name}](${release.html_url}).`;
 
@@ -88,7 +106,17 @@ function mirrorRelease(sourceRepo, release, mirrorTag, title) {
   fs.rmSync(tmpDir, { recursive: true, force: true });
 }
 
-function processEntry(repo, slug, label, tagPrefix) {
+function processEntry(repo, slug, label, tagPrefix, assetAllowlist) {
+  const meta = repoMeta(repo);
+  // Private repos must declare an explicit asset allowlist in repos.json —
+  // without one we refuse to guess, since release assets (sdists, source
+  // zips) can contain the very source code the repo is private to protect.
+  if (meta.private && !assetAllowlist) {
+    throw new Error(
+      `${label}: repo ${repo} is private but has no assetAllowlist configured in repos.json`
+    );
+  }
+
   const release = latestStableRelease(repo, tagPrefix);
   if (!release) {
     console.log(`[skip] ${label}: no stable release found`);
@@ -104,8 +132,24 @@ function processEntry(repo, slug, label, tagPrefix) {
     return;
   }
 
-  console.log(`[mirror] ${label}: ${release.tag_name} -> ${mirrorTag}`);
-  mirrorRelease(repo, release, mirrorTag, `${label} ${release.tag_name}`);
+  const assets = assetAllowlist
+    ? filterAssets(release.assets, assetAllowlist)
+    : release.assets;
+
+  if (assets.length === 0) {
+    throw new Error(
+      `${label}: ${release.tag_name} has no assets matching assetAllowlist ${JSON.stringify(
+        assetAllowlist
+      )}`
+    );
+  }
+
+  console.log(
+    `[mirror] ${label}: ${release.tag_name} -> ${mirrorTag} (${assets
+      .map((a) => a.name)
+      .join(", ")})`
+  );
+  mirrorRelease(repo, release, assets, mirrorTag, `${label} ${release.tag_name}`);
 }
 
 function main() {
@@ -113,10 +157,16 @@ function main() {
   for (const entry of repos) {
     if (entry.variants) {
       for (const v of entry.variants) {
-        processEntry(entry.repo, v.slug, `${entry.name} (${v.label})`, v.tagPrefix);
+        processEntry(
+          entry.repo,
+          v.slug,
+          `${entry.name} (${v.label})`,
+          v.tagPrefix,
+          entry.assetAllowlist
+        );
       }
     } else {
-      processEntry(entry.repo, entry.slug, entry.name, undefined);
+      processEntry(entry.repo, entry.slug, entry.name, undefined, entry.assetAllowlist);
     }
   }
 }

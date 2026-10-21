@@ -6,19 +6,22 @@
     "variants": [
       { "label": "BENCHLAB 2", "slug": "fw-benchlab2", "tagPrefix": "benchlab2/" },
       { "label": "BENCHLAB 1", "slug": "fw-benchlab1", "tagPrefix": "benchlab1/" }
-    ]
+    ],
+    "assetAllowlist": ["*.bin", "*.hex", "*.elf", "SHA256SUMS"]
   },
   {
     "repo": "BENCHLAB.BENCHLAB_Software",
     "name": "BENCHLAB Dashboard",
     "description": "Windows desktop app for monitoring & controlling BENCHLAB hardware",
-    "slug": "dashboard"
+    "slug": "dashboard",
+    "assetAllowlist": ["*-setup.exe", "*-setup.exe.sha256", "*.msi"]
   },
   {
     "repo": "BENCHLAB.BENCHLAB_Service",
     "name": "BENCHLAB Service",
     "description": "BENCHLAB software core exposed as a background service",
-    "slug": "service"
+    "slug": "service",
+    "assetAllowlist": ["*-Setup-*.exe", "*-EmbedKit-*.zip"]
   },
   {
     "repo": "benchlab-pycore",
@@ -36,6 +39,7 @@
     "repo": "benchlab-icue-widget",
     "name": "BENCHLAB iCUE Widget",
     "description": "BENCHLAB widget integration for Corsair iCUE",
-    "slug": "icue-widget"
+    "slug": "icue-widget",
+    "assetAllowlist": ["*.icuewidget"]
   }
 ]
