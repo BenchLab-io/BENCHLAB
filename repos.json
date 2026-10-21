@@ -1,0 +1,32 @@
+[
+  {
+    "repo": "BENCHLAB-FW",
+    "name": "BENCHLAB Firmware",
+    "description": "Firmware running on the BENCHLAB hardware board"
+  },
+  {
+    "repo": "BENCHLAB.BENCHLAB_Software",
+    "name": "BENCHLAB Software",
+    "description": "Windows desktop app for monitoring & controlling BENCHLAB hardware"
+  },
+  {
+    "repo": "BENCHLAB.BENCHLAB_Service",
+    "name": "BENCHLAB Service",
+    "description": "BENCHLAB software core exposed as a background service"
+  },
+  {
+    "repo": "benchlab-pycore",
+    "name": "BENCHLAB PyCore",
+    "description": "Python interface library for talking to BENCHLAB hardware"
+  },
+  {
+    "repo": "benchlab-pytools",
+    "name": "BENCHLAB PyTools",
+    "description": "Python tools & scripts built on top of BENCHLAB PyCore"
+  },
+  {
+    "repo": "benchlab-icue-widget",
+    "name": "BENCHLAB iCUE Widget",
+    "description": "BENCHLAB widget integration for Corsair iCUE"
+  }
+]
