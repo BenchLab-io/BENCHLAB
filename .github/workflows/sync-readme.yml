@@ -1,0 +1,33 @@
+name: Sync releases and repo table
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # daily at 06:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Mirror latest stable releases from source repos
+        env:
+          ORG_SYNC_TOKEN: ${{ secrets.ORG_SYNC_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/mirror_releases.js
+
+      - name: Update README from repos.json
+        env:
+          GH_TOKEN: ${{ secrets.ORG_SYNC_TOKEN }}
+        run: node scripts/update_readme.js
+
+      - name: Commit changes
+        run: |
+          git config user.name "benchlab-bot"
+          git config user.email "actions@github.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "Sync repo table from repos.json"
+          git push

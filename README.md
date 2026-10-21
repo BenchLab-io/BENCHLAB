@@ -1,60 +1,94 @@
+<div align="center">
+
 # BENCHLAB
-ILLUMINATE YOUR INSIGHTS | REAL-TIME SYSTEM TELEMETRY SOLUTION
 
-BENCHLAB is a cutting-edge, compact, real-time system telemetry solution engineered for PC DIY enthusiasts.
-It allows you to effortlessly monitor critical system metrics, including temperature, power usage, and voltage levels.
-You can also manage system fan speeds. The telemetry data is displayed in the BENCHLAB software, and you can log and export data to a file or to HWiNFO.
+**Illuminate your insights — real-time system telemetry for PC DIY enthusiasts and labs.**
 
-Monitoring is available for:
-- Power
-- Voltage
-- Temperature
-- Humidity
+[Website](https://benchlab.io) · [Shop](https://benchlab.io) · [BENCHLAB 2 Announcement](https://benchlab.io/blogs/news/introducing-benchlab-2)
 
-BENCHLAB is available for purchase starting from December 29th, 2023 at BENCHLAB.io.
-![image](https://github.com/BENCHLAB-io/BENCHLAB/assets/2151317/6aa9c95a-c936-4c4b-9b91-a81a62c2ebf7)
+</div>
 
-# BENCHLAB Software
-The software available on this page is made to exclusively work with the BENCHLAB Hardware. The software is made to run on Windows 10/11.
+---
 
-# How to install & use the BENCHLAB software
-- Download the BENCHLAB software from the official Github releases page: [https://github.com/BENCHLAB-io](https://github.com/BENCHLAB-io/BENCHLAB/releases)
-- Unzip the files in a new folder
-- Double-click the executable "BENCHLAB.exe" to start the software
-- Make sure the BENCHLAB is connected to the system where the software is installed
-- Run the software, you should see that the BENCHLAB device is connected
+## What is BENCHLAB?
 
-# FAQ
-- My antivirus is giving a warning when I unzip / run the program
-This can happen with WIndows Defender SmartScreen or AVAST as we are a small team we are not yet a "known" source for software distribution.
+BENCHLAB is a compact, real-time system telemetry board that connects over USB Type-C and lets you monitor:
 
-- Can I communicate with the BENCHLAB Hardware with a script?
-Yes you can check the example Python Script at : https://github.com/BENCHLAB-io/BENCHLAB.PythonSample
+- **Power** — per-rail and per-pin draw, including individual 12VHPWR pin monitoring on BENCHLAB 2
+- **Voltage**
+- **Temperature** — including 12VHPWR power in/out temperature on BENCHLAB 2
+- **Humidity**
+- **Fan speed**, with manual and automated control
 
-# Change log
-Check the release page for changes.
+Telemetry is displayed live in the BENCHLAB Dashboard app, and can be logged/exported to a file or to HWiNFO.
 
-# Some things that we might be working on
-- Add saving settings options (save permanent/export/import/factory reset)
-- Better installation process, especially with less AV flag.
-- Light & Dark mode options
-- Add a Re-calibration feature (to re-calibrate your BENCHLAB board)
-- Advanced Fan control options in software
-- Advanced Fan control options save on the BENCHLAB board (whenever possible)
-- Report status of RGB header connected
+**BENCHLAB 2** launched in 2026 as a redesign of the original BENCHLAB (available since December 2023), with a 6-layer PCB for lower noise and voltage drop, full 12VHPWR pin-level monitoring, physical power/reset buttons, built-in fault detection with an audible alarm, and support for up to 2 SSDs. Read more in the [BENCHLAB 2 announcement](https://benchlab.io/blogs/news/introducing-benchlab-2).
 
-# Professional services, support & calibration
-For professional partners, Labs and Benchmark-automation groups, feel free to contact us at contact@BENCHLAB.io for alternative way to communicate with the BENCHLAB hardware, dedicated support and extra calibration needs.
+Hardware is available for purchase at [benchlab.io](https://benchlab.io).
 
-# Disclaimer
-The BENCHLAB Team's goals are to provide a reliable and good user experience, keep in mind that bugs & limitations can still be present.
-If you encounter a bug in the software, you can report it in the "issue" tab on Github. If you need support 
+<table>
+<tr>
+<th>BENCHLAB 2</th>
+<th>BENCHLAB 1</th>
+</tr>
+<tr>
+<td><img src="https://benchlab.io/cdn/shop/files/BENCHLAB2_Front.png" width="400" alt="BENCHLAB 2"></td>
+<td><img src="https://github.com/BENCHLAB-io/BENCHLAB/assets/2151317/6aa9c95a-c936-4c4b-9b91-a81a62c2ebf7" width="400" alt="BENCHLAB 1"></td>
+</tr>
+</table>
 
-To download the latest version, check the Releases tab.
+---
 
-## BENCHLAB is brought to you by The OpenBenchtable Project & ElmorLabs
+## Software, firmware & tools
 
-## This project is made possible using Open Source components
-- SkiaSharp https://github.com/mono/SkiaSharp
-- HarfBuzz https://github.com/harfbuzz/harfbuzz
-- AvaloniaUI https://github.com/AvaloniaUI/Avalonia
+This repo is the central index for everything BENCHLAB. The table below is regenerated automatically every day (see [`.github/workflows/sync-readme.yml`](.github/workflows/sync-readme.yml)) from [`repos.json`](repos.json).
+
+Source for some projects is kept private. For those, the "Latest release" link points to a mirrored copy of the installer/firmware/package published here on this repo, so downloads work for everyone regardless of source access.
+
+<!-- BENCHLAB-REPOS:START -->
+
+| Project | Description | Source | Latest release | Updated |
+|---|---|---|---|---|
+| **BENCHLAB Firmware** | Firmware for the BENCHLAB hardware boards | Private source | BENCHLAB 2: [v0.7.4](https://github.com/BenchLab-io/BENCHLAB/releases/tag/fw-benchlab2-v0.7.4)<br>BENCHLAB 1: [v0.6.0](https://github.com/BenchLab-io/BENCHLAB/releases/tag/fw-benchlab1-v0.6.0) | 2026-10-21<br>2026-10-21 |
+| **BENCHLAB Dashboard** | Windows desktop app for monitoring & controlling BENCHLAB hardware | Private source | [v2.0.0](https://github.com/BenchLab-io/BENCHLAB/releases/tag/dashboard-v2.0.0) | 2026-10-21 |
+| **BENCHLAB Service** | BENCHLAB software core exposed as a background service | Private source | [v2.6.1](https://github.com/BenchLab-io/BENCHLAB/releases/tag/service-v2.6.1) | 2026-10-21 |
+| **BENCHLAB PyCore** | Python interface library for talking to BENCHLAB hardware | [Public source](https://github.com/BenchLab-io/benchlab-pycore) | [v0.8.0](https://github.com/BenchLab-io/BENCHLAB/releases/tag/pycore-v0.8.0) | 2026-10-21 |
+| **BENCHLAB PyTools** | Python tools & scripts built on top of BENCHLAB PyCore | [Public source](https://github.com/BenchLab-io/benchlab-pytools) | [v3.3.1](https://github.com/BenchLab-io/BENCHLAB/releases/tag/pytools-v3.3.1) | 2026-10-21 |
+| **BENCHLAB iCUE Widget** | BENCHLAB widget integration for Corsair iCUE | Private source | [v1.0.12](https://github.com/BenchLab-io/BENCHLAB/releases/tag/icue-widget-v1.0.12) | 2026-10-21 |
+
+<!-- BENCHLAB-REPOS:END -->
+
+---
+
+## FAQ
+
+**My antivirus flags the software when I unzip / run it.**
+This can happen with Windows Defender SmartScreen or similar tools — as a small team, we're not yet a "known" source for software distribution to every AV vendor.
+
+**Can I talk to BENCHLAB hardware from a script?**
+Yes — see [benchlab-pycore](https://github.com/BenchLab-io/benchlab-pycore) for the Python interface, and [benchlab-pytools](https://github.com/BenchLab-io/benchlab-pytools) for ready-made scripts built on top of it.
+
+**Where do I report a bug?**
+Open an issue on the specific project's repository (see the table above). For general support, contact [contact@benchlab.io](mailto:contact@benchlab.io).
+
+## Professional services & support
+
+For professional partners, labs, and benchmark-automation groups: get in touch at [contact@benchlab.io](mailto:contact@benchlab.io) for alternative integration options, dedicated support, and calibration services.
+
+## Disclaimer
+
+The BENCHLAB team aims to provide a reliable, polished experience, but as with any actively developed hardware/software project, bugs and limitations can still be present. Please report issues via the relevant project's GitHub Issues tab.
+
+---
+
+<div align="center">
+
+BENCHLAB is brought to you by **The OpenBenchtable Project** & **ElmorLabs**
+
+</div>
+
+### Open source components used
+
+- [SkiaSharp](https://github.com/mono/SkiaSharp)
+- [HarfBuzz](https://github.com/harfbuzz/harfbuzz)
+- [AvaloniaUI](https://github.com/AvaloniaUI/Avalonia)
