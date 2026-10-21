@@ -84,7 +84,11 @@ function mirrorRelease(sourceRepo, release, assets, mirrorTag, title) {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "benchlab-mirror-"));
   const assetPaths = assets.map((a) => downloadAsset(sourceRepo, a, tmpDir));
 
-  const notes = `Mirrored from [${sourceRepo} ${release.tag_name}](${release.html_url}).`;
+  const notes = [
+    `Mirrored from [${sourceRepo} ${release.tag_name}](${release.html_url}).`,
+    "",
+    "> **Note:** the auto-generated \"Source code (zip)\" / \"Source code (tar.gz)\" links below are GitHub's standard archive of this BENCHLAB hub repo at this tag (README/scripts only) — not this product's source.",
+  ].join("\n");
 
   sh(
     "gh",
